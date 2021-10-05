@@ -62,7 +62,7 @@ class list {
 			node* temp = head;
 			while(temp != nullptr)
 			{	
-				cout << setw(3) << setfill(' ') << temp->data;
+				cout << setw(4) << setfill(' ') << temp->data;
 				temp = temp->next;
 			}
 			cout << endl;
@@ -122,7 +122,11 @@ class list {
 
 		bool remove(int position)
 		{
-			if(position > this->listCount) return false;	//position out of range;
+			if(position > this->listCount)
+			{
+				cout << "Error, removal failed: position out of range, " << endl;
+				return false;	//position out of range;	
+			} 
 			size_t currentPosition = 1;
 			node* currentNode = head;
 			node* prev = nullptr;
@@ -134,20 +138,17 @@ class list {
 			}
 			if(prev == nullptr) 	// head is to be removed
 			{
-				node* temp = head;
 				head = head->next;
-				delete temp;
-				--listCount;
-				return true;
 			}
 			else					// some middle node is to be removed
 			{
 				prev->next = currentNode->next;
-				delete currentNode;
-				--listCount;
-				return true;
 			}
 
+			delete currentNode;
+			--listCount;
+			cout << "Item " << position << " removed" << endl;
+			return true;
 		}
 
 		void change(size_t position, int value)
@@ -162,6 +163,32 @@ class list {
 			}
 			currentNode->data = value;			
 		}
+
+		void reverse()
+		{
+			if(0 == this->listCount) return;
+
+			node *nextNode, *prev, *currentNode;
+			
+			// At head node;
+			currentNode = head;	
+			prev = nullptr;
+			
+			do  	// Generalized process;
+			{
+				nextNode = currentNode->next;
+				currentNode->next = prev;
+				prev = currentNode;
+				currentNode = nextNode;
+			} while(nextNode != nullptr);
+
+			// When at last node:
+			head = prev;
+			// Free memory
+			delete nextNode; 					
+			delete currentNode;
+		}
+
 };
 
 int main()
@@ -190,6 +217,18 @@ int main()
 	items.print();
 	items.change(1, 82);
 	items.print();
+
+	items.reverse();
+	items.add(5);
+	items.add(35);
+	items.add(28);
+	items.print();
+
+	list others;
+	others.print();
+	others.reverse();
+	others.print();
+	
 	
 	return 0;
 }
