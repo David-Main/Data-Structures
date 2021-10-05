@@ -188,7 +188,17 @@ class list {
 			delete nextNode; 					
 			delete currentNode;
 		}
-
+		
+		void printRecursive(node* currentNode)
+		{
+			if(nullptr == currentNode->next)
+				cout << setw(4) << currentNode->data;
+			else 
+			{
+				cout << setw(4) << currentNode->data;
+				printRecursive(currentNode->next);
+			}		
+		}
 };
 
 int main()
@@ -229,6 +239,9 @@ int main()
 	others.reverse();
 	others.print();
 	
-	
+	items.printRecursive(items.head);
+	cout <<endl;
+	items.print();
+
 	return 0;
 }
