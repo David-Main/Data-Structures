@@ -199,6 +199,16 @@ class list {
 				printRecursive(currentNode->next);
 			}		
 		}
+
+		void printReverseRecursive(node* currentNode)
+		{
+			if(nullptr != currentNode->next)
+			{
+				printReverseRecursive(currentNode->next);
+			}
+			
+			cout << setw(4) << currentNode->data;
+		}
 };
 
 int main()
@@ -242,6 +252,8 @@ int main()
 	items.printRecursive(items.head);
 	cout <<endl;
 	items.print();
+
+	items.printReverseRecursive(items.head);
 
 	return 0;
 }
