@@ -191,22 +191,15 @@ class list {
 		
 		void printRecursive(node* currentNode)
 		{
-			if(nullptr == currentNode->next)
-				cout << setw(4) << currentNode->data;
-			else 
-			{
-				cout << setw(4) << currentNode->data;
-				printRecursive(currentNode->next);
-			}		
+			cout << setw(4) << currentNode->data;
+			if(nullptr == currentNode->next) return;
+			printRecursive(currentNode->next);
 		}
 
 		void printReverseRecursive(node* currentNode)
 		{
 			if(nullptr != currentNode->next)
-			{
 				printReverseRecursive(currentNode->next);
-			}
-			
 			cout << setw(4) << currentNode->data;
 		}
 };
@@ -242,6 +235,12 @@ int main()
 	items.add(5);
 	items.add(35);
 	items.add(28);
+	items.add(5);
+	items.add(35);
+	items.add(3);
+	items.add(47);
+	items.add(92);
+	items.add(2);
 	items.print();
 
 	list others;
@@ -250,7 +249,7 @@ int main()
 	others.print();
 	
 	items.printRecursive(items.head);
-	cout <<endl;
+	cout << endl;
 	items.print();
 
 	items.printReverseRecursive(items.head);
