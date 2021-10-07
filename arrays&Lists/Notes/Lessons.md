@@ -49,5 +49,5 @@ void recursiveReverse(node *currentNode, node *prev = nullptr)
 ```
 
 I do not have full closure on why this works but I believe it has to  
-do with the fact that by using currentNode directly, we are rather dealing  
-with the list items themselves and not a representation of them.
+do with the fact that by using "currentNode->next" directly, we are rather dealing  
+with the list items themselves and not a representation of them as the local variable would have it.
