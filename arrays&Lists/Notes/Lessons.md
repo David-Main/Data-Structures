@@ -31,7 +31,7 @@ This happens for all items in the list and subsequently,
 - we loose access to all list items aside from the last node  
 which becomes the head node. 
 - we also cause memory leaks in our program since the lost list  
-items will still be occupying memory.
+items will still be occupying memory.  
 
 
 In order to avoid this, we need to use currentNode->next directly instead.   
