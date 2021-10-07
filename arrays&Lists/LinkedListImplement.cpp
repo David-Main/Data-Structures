@@ -202,6 +202,17 @@ class list {
 				printReverseRecursive(currentNode->next);
 			cout << setw(4) << currentNode->data;
 		}
+
+		void recursiveReverse(node* currentNode, node* prev = nullptr) 
+		{
+			if(nullptr != currentNode->next)
+			{
+				recursiveReverse(currentNode->next, currentNode);
+			}
+			if(currentNode->next == nullptr)
+				head = currentNode;
+			currentNode->next = prev;
+		}
 };
 
 int main()
@@ -217,30 +228,21 @@ int main()
 	cout << "List Count: " << items.listCount << endl;
 	cout << "Found at position: " << items.search(23) << endl;
 
-	list materials;
+	/* list materials;
 	cout << materials.listCount << endl;
 	materials.print();
 	materials.add(2);
-	materials.print();
+	materials.print(); */
 
 	items.print();
 	items.remove(3);
-	items.print();
-	items.remove(1);
 	items.print();
 	items.change(1, 82);
 	items.print();
 
 	items.reverse();
-	items.add(5);
-	items.add(35);
-	items.add(28);
-	items.add(5);
-	items.add(35);
-	items.add(3);
-	items.add(47);
-	items.add(92);
-	items.add(2);
+	for (int i = 1; i < 100; i*=3) 
+		items.add(i);
 	items.print();
 
 	list others;
@@ -252,7 +254,17 @@ int main()
 	cout << endl;
 	items.print();
 
-	items.printReverseRecursive(items.head);
+	// items.printReverseRecursive(items.head);
+
+	// cout << endl << endl << endl;
+	items.recursiveReverse(items.head);
+	cout << endl << endl;
+	items.print();
+
+	// materials.recursiveReverse(materials.head);
+	// cout << "\n\n\n" << "reversed Listcount: " << materials.listCount;
+
+	// others.recursiveReverse(others.head);
 
 	return 0;
 }
