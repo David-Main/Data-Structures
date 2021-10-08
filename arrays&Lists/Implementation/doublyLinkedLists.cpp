@@ -16,6 +16,7 @@ private:
 public: //variables
 	size_t listCount;
 	node *headNode = nullptr;
+	node *tailNode = nullptr;
 
 public: //functions
 	dlList()
@@ -26,6 +27,7 @@ public: //functions
 	dlList(int value)
 	{
 		headNode = new node{value};
+		tailNode = headNode;
 		++listCount;
 	}
 
@@ -40,7 +42,7 @@ public: //functions
 		if (isEmpty() && nullptr == headNode)
 		{
 			headNode = new node{value};
-			++listCount;
+			tailNode = headNode;
 		}
 		else
 		{
@@ -49,8 +51,9 @@ public: //functions
 				temp = temp->next;
 			}
 			temp->next = new node{value};
-			++listCount;
+			tailNode = temp->next;
 		}
+		++listCount;
 	}
 
 	void print()
@@ -142,9 +145,14 @@ public: //functions
 		if (temp == headNode)
 		{ // Delete head node
 			headNode = temp->next;
+			delete headNode->prev;
+			headNode->prev = nullptr;
+			--listCount;
+			return true;
 		}
 		else if (nullptr == temp->next)
 		{ // Delete last node;
+			tailNode = temp->prev;
 			temp->prev->next = nullptr;
 		}
 		else if (position < listCount)
@@ -172,6 +180,22 @@ public: //functions
 		}
 		temp->data = value;
 		return true;
+	}
+
+	void recursivePrint(node *currentNode)
+	{
+		cout << setw(4) << currentNode->data;
+		if (nullptr != currentNode->next)
+			recursivePrint(currentNode->next);
+		cout << endl;
+	}
+
+	void recursiveReversePrint(node *currentNode)
+	{
+
+		cout << setw(4) << currentNode->data;
+		if (nullptr != currentNode->prev)
+			recursiveReversePrint(currentNode->prev);
 	}
 };
 
@@ -216,5 +240,9 @@ int main()
 	items.change(1, 35);
 	items.print();
 
-	return 0;
+	// Testing recursive print;
+	items.recursivePrint(items.headNode);
+
+	// Testing reverseRecursivePrint;
+	items.recursiveReversePrint(items.tailNode);
 }
