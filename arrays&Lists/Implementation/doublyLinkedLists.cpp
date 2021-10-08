@@ -197,6 +197,21 @@ public: //functions
 		if (nullptr != currentNode->prev)
 			recursiveReversePrint(currentNode->prev);
 	}
+
+	void reverse(node *currentNode)
+	{
+		node *nextNode = currentNode->next;
+		currentNode->next = currentNode->prev;
+		currentNode->prev = nextNode;
+		if (currentNode->prev != nullptr)
+		{
+			reverse(currentNode->prev);
+		}
+		else
+		{
+			headNode = currentNode;
+		}
+	}
 };
 
 int main()
@@ -221,6 +236,7 @@ int main()
 		items.print(i);
 	}
 
+	/* 
 	// Testing removal of node
 	items.remove(1);
 	items.print();
@@ -229,7 +245,7 @@ int main()
 	items.remove(items.search(16));
 	items.print();
 	items.remove(items.search(16));
-	items.print();
+	items.print(); */
 
 	// Testing changing node data;
 	cout << items.listCount << endl;
@@ -245,4 +261,9 @@ int main()
 
 	// Testing reverseRecursivePrint;
 	items.recursiveReversePrint(items.tailNode);
+
+	//Testing reverse function;
+	items.reverse(items.headNode);
+	cout << endl;
+	items.print();
 }
