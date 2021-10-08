@@ -155,6 +155,22 @@ public: //functions
 
 		delete temp;
 		temp = nullptr;
+		--listCount;
+		return true;
+	}
+
+	bool change(size_t position, int value)
+	{
+		if (position > listCount)
+			return false;
+		size_t currentPos = 1;
+		node *temp = headNode;
+		while (currentPos != position)
+		{
+			temp = temp->next;
+			++currentPos;
+		}
+		temp->data = value;
 		return true;
 	}
 };
@@ -189,6 +205,15 @@ int main()
 	items.remove(items.search(16));
 	items.print();
 	items.remove(items.search(16));
+	items.print();
+
+	// Testing changing node data;
+	cout << items.listCount << endl;
+	items.change(1, 28);
+	items.print();
+	items.change(1, 8);
+	items.print();
+	items.change(1, 35);
 	items.print();
 
 	return 0;
