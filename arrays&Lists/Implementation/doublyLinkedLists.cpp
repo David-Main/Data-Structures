@@ -125,6 +125,38 @@ public: //functions
 		}
 		return 0;
 	}
+
+	bool remove(size_t position)
+	{
+		if (isEmpty() || position > listCount || 0 == position)
+			return false;
+
+		node *temp = headNode;
+		size_t currentPos = 1;
+		while (currentPos != position)
+		{ //Go to target Position;
+			temp = temp->next;
+			++currentPos;
+		}
+
+		if (temp == headNode)
+		{ // Delete head node
+			headNode = temp->next;
+		}
+		else if (nullptr == temp->next)
+		{ // Delete last node;
+			temp->prev->next = nullptr;
+		}
+		else if (position < listCount)
+		{
+			temp->prev->next = temp->next;
+			temp->next->prev = temp->prev;
+		}
+
+		delete temp;
+		temp = nullptr;
+		return true;
+	}
 };
 
 int main()
@@ -148,6 +180,16 @@ int main()
 	{
 		items.print(i);
 	}
+
+	// Testing removal of node
+	items.remove(1);
+	items.print();
+	items.remove(items.search(3));
+	items.print();
+	items.remove(items.search(16));
+	items.print();
+	items.remove(items.search(16));
+	items.print();
 
 	return 0;
 }
