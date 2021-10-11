@@ -1,4 +1,4 @@
-# During Linked Lists:
+# Observations:
 
 I observed while implementing linked lists using recursion that  
 any pointer variable created in a recursive function must be used  
